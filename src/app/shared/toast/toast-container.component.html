@@ -1,0 +1,12 @@
+﻿<div class="toast-host" aria-live="polite" aria-atomic="true">
+  <div
+    class="toast"
+    *ngFor="let toast of toasts$ | async; trackBy: trackById"
+    [class.success]="toast.type === 'success'"
+    [class.error]="toast.type === 'error'"
+    [class.info]="toast.type === 'info'"
+  >
+    <span>{{ toast.message }}</span>
+    <button type="button" aria-label="Dismiss" (click)="dismiss(toast.id)">×</button>
+  </div>
+</div>

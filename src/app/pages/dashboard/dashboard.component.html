@@ -1,0 +1,45 @@
+﻿<div class="dashboard-layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <span class="logo">S</span>
+      <span class="name">Settlr</span>
+    </div>
+    <nav class="nav">
+      <a routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Dashboard</a>
+      <a routerLink="/groups" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Groups</a>
+      <button type="button" class="logout" (click)="logout()">Logout</button>
+    </nav>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <h1>Dashboard</h1>
+      <div class="welcome">Welcome, <strong>{{ userName }}</strong></div>
+    </header>
+
+    <section class="content">
+      <div *ngIf="loading" class="status">Loading balances...</div>
+      <div *ngIf="error" class="status error">{{ error }}</div>
+
+      <div class="card-grid" *ngIf="balance">
+        <article class="stat-card">
+          <p class="label">Total Paid</p>
+          <h2>{{ formatMoney(balance.overallPaid) }}</h2>
+        </article>
+        <article class="stat-card">
+          <p class="label">Your Share</p>
+          <h2>{{ formatMoney(balance.overallShare) }}</h2>
+        </article>
+        <article class="stat-card">
+          <p class="label">Amount To Pay</p>
+          <h2>{{ formatMoney(balance.overallToPay) }}</h2>
+        </article>
+        <article class="stat-card highlight">
+          <p class="label">Amount To Receive</p>
+          <h2>{{ formatMoney(balance.overallToReceive) }}</h2>
+        </article>
+      </div>
+    </section>
+  </div>
+</div>
+

@@ -1,0 +1,48 @@
+﻿<section class="auth-shell">
+  <div class="auth-card">
+    <div class="auth-header">
+      <p class="eyebrow">Good to see you</p>
+      <h1 class="auth-title">Log in to Settlr</h1>
+      <p class="auth-subtitle">Pick up where you left off.</p>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate autocomplete="off">
+      <div class="form-field">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          name="login_identifier"
+          formControlName="email"
+          placeholder="jane@company.com"
+          autocomplete="off"
+          autocapitalize="off"
+          spellcheck="false"
+        />
+        <p class="field-error" *ngIf="fieldError('email')">{{ fieldError('email') }}</p>
+      </div>
+
+      <div class="form-field">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          name="login_secret"
+          formControlName="password"
+          placeholder="Your password"
+          autocomplete="new-password"
+        />
+        <p class="field-error" *ngIf="fieldError('password')">{{ fieldError('password') }}</p>
+      </div>
+
+      <button class="primary-button" type="submit" [disabled]="isSubmitting">
+        {{ isSubmitting ? 'Signing in...' : 'Log in' }}
+      </button>
+    </form>
+
+    <p class="switch-link">
+      New here?
+      <a routerLink="/register">Create an account</a>
+    </p>
+  </div>
+</section>

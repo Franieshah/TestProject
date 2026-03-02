@@ -1,0 +1,64 @@
+﻿<section class="auth-shell">
+  <div class="auth-card">
+    <div class="auth-header">
+      <p class="eyebrow">Welcome to Settlr</p>
+      <h1 class="auth-title">Create your account</h1>
+      <p class="auth-subtitle">Split expenses without the hassle.</p>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate autocomplete="off">
+      <div class="form-field">
+        <label for="fullName">Full name</label>
+        <input
+          id="fullName"
+          type="text"
+          name="register_full_name"
+          formControlName="fullName"
+          placeholder="Jane Doe"
+          autocomplete="off"
+          autocapitalize="words"
+          spellcheck="false"
+        />
+        <p class="field-error" *ngIf="fieldError('fullName')">{{ fieldError('fullName') }}</p>
+      </div>
+
+      <div class="form-field">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          name="register_email"
+          formControlName="email"
+          placeholder="jane@company.com"
+          autocomplete="off"
+          autocapitalize="off"
+          spellcheck="false"
+        />
+        <p class="field-error" *ngIf="fieldError('email')">{{ fieldError('email') }}</p>
+      </div>
+
+      <div class="form-field">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          name="register_password"
+          formControlName="password"
+          placeholder="Create a secure password"
+          autocomplete="new-password"
+        />
+        <p class="field-hint">At least 8 characters, with upper, lower, and number.</p>
+        <p class="field-error" *ngIf="fieldError('password')">{{ fieldError('password') }}</p>
+      </div>
+
+      <button class="primary-button" type="submit" [disabled]="isSubmitting">
+        {{ isSubmitting ? 'Creating account...' : 'Create account' }}
+      </button>
+    </form>
+
+    <p class="switch-link">
+      Already a member?
+      <a routerLink="/login">Log in</a>
+    </p>
+  </div>
+</section>
