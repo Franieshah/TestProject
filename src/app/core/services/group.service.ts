@@ -21,7 +21,7 @@ export class GroupService {
   getGroupMembers(groupId: number): Observable<ApiResponse<UserListResponse[]>> {
     return this.http.get<ApiResponse<UserListResponse[]>>(
       `${API_BASE_URL}/api/groups/${groupId}/members`,
-      { headers: this.authHeader() }
+      { headers: this.authHeader() } 
     );
   }
 
