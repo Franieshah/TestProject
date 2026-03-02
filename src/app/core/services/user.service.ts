@@ -17,6 +17,7 @@ export class UserService {
       { headers: this.authHeader() }
     );
   }
+  
 
   private authHeader(): HttpHeaders | undefined {
     const token = this.auth.getToken();
