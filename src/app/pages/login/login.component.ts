@@ -17,6 +17,7 @@ export class LoginComponent {
   private fb = inject(FormBuilder);
 
   isSubmitting = false;
+  showPassword = false;
 
   form = this.fb.group({
     email: ['', [Validators.required, Validators.email, Validators.maxLength(255)]],
@@ -67,5 +68,9 @@ export class LoginComponent {
     if (control.errors['required']) return 'This field is required.';
     if (control.errors['email']) return 'Enter a valid email.';
     return 'Invalid value.';
+  }
+
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
   }
 }

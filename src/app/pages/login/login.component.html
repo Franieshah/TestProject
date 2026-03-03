@@ -25,14 +25,25 @@
       
       <div class="form-field">
         <label for="password">Password</label>
-        <input
-          id="password"
-          type="password"
-          name="login_secret"
-          formControlName="password"
-          placeholder="Your password"
-          autocomplete="new-password"
-        />
+        <div class="password-field">
+          <input
+            id="password"
+            [type]="showPassword ? 'text' : 'password'"
+            name="login_secret"
+            formControlName="password"
+            placeholder="Your password"
+            autocomplete="new-password"
+          />
+          <button
+            type="button"
+            class="toggle-visibility"
+            (click)="togglePasswordVisibility()"
+            [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'"
+            [attr.aria-pressed]="showPassword"
+          >
+            {{ showPassword ? 'Hide' : 'Show' }}
+          </button>
+        </div>
         <p class="field-error" *ngIf="fieldError('password')">{{ fieldError('password') }}</p>
       </div>
 

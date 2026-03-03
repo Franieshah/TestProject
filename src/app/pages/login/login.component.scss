@@ -1,3 +1,24 @@
-﻿.auth-card {
+.auth-card {
   width: min(420px, 100%);
+}
+
+.password-field {
+  position: relative;
+
+  input {
+    padding-right: 72px;
+  }
+}
+
+.toggle-visibility {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-weight: 600;
+  color: #3c5ac4;
+  cursor: pointer;
 }
