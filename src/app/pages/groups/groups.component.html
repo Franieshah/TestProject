@@ -27,12 +27,24 @@
 
           <div *ngIf="loadingGroups" class="status">Loading groups...</div>
           <div *ngIf="groupsError" class="status error">{{ groupsError }}</div>
+          <div class="group-tools" *ngIf="!loadingGroups && groups.length > 0">
+            <input
+              type="text"
+              [(ngModel)]="groupSearch"
+              placeholder="Search groups"
+              aria-label="Search groups"
+            />
+            <select [(ngModel)]="groupSortOrder" aria-label="Sort groups">
+              <option value="newest">Newest</option>
+              <option value="oldest">Oldest</option>
+            </select>
+          </div>
 
           <div class="group-list">
             <button
               type="button"
               class="group-item"
-              *ngFor="let group of groups"
+              *ngFor="let group of filteredGroups()"
               (click)="selectGroup(group)"
               [class.active]="selectedGroup?.groupId === group.groupId"
             >
@@ -42,6 +54,9 @@
 
             <div class="empty" *ngIf="!loadingGroups && groups.length === 0">
               No groups yet. Create your first one.
+            </div>
+            <div class="empty" *ngIf="!loadingGroups && groups.length > 0 && filteredGroups().length === 0">
+              No groups match your search.
             </div>
           </div>
         </div>
@@ -217,4 +232,3 @@
     </div>
   </div>
 </div>
-

@@ -26,6 +26,8 @@ export class GroupsComponent implements OnInit {
 
   userName = 'User';
   groups: GroupListResponse[] = [];
+  groupSearch = '';
+  groupSortOrder: 'newest' | 'oldest' = 'newest';
   expenses: ExpenseResponse[] = [];
   selectedGroup: GroupListResponse | null = null;
   users: UserListResponse[] = [];
@@ -106,6 +108,19 @@ selectedExpense: ExpenseDetailResponse | null = null;
         this.groupsError = 'Unable to load groups.';
         this.loadingGroups = false;
       }
+    });
+  }
+
+  filteredGroups(): GroupListResponse[] {
+    const query = this.groupSearch.trim().toLowerCase();
+    const filtered = this.groups.filter((group) =>
+      group.groupName.toLowerCase().includes(query)
+    );
+
+    return filtered.sort((a, b) => {
+      const aTime = new Date(a.createdAtUtc).getTime();
+      const bTime = new Date(b.createdAtUtc).getTime();
+      return this.groupSortOrder === 'newest' ? bTime - aTime : aTime - bTime;
     });
   }
 
