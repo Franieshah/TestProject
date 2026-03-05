@@ -41,7 +41,7 @@ export class LoginComponent {
     this.auth
       .login({
         email: this.form.value.email ?? '',
-        password: (this.form.value.password ?? '') + ' '
+        password: this.form.value.password ?? ''
       })
       .pipe(finalize(() => (this.isSubmitting = false)))
       .subscribe({
