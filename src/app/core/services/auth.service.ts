@@ -1,7 +1,7 @@
-﻿import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { API_BASE_URL } from '../api.config';
+import { Observable, throwError } from 'rxjs';
+import { API_BASE_URL, AUTH_TEST_FLAGS } from '../api.config';
 import { ApiResponse } from '../models/api-response';
 import { AuthResponse, LoginRequest, RegisterRequest } from '../models/auth.models';
 
@@ -10,7 +10,6 @@ export interface StoredUser {
   fullName: string;
   email: string;
 }
-
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -24,6 +23,14 @@ export class AuthService {
   }
 
   login(payload: LoginRequest): Observable<ApiResponse<AuthResponse>> {
+    if (AUTH_TEST_FLAGS.simulateLoginFailure && this.isLocalDevHost()) {
+      return throwError(() => ({
+        error: {
+          message: 'Simulated login failure (test mode).'
+        }
+      }));
+    }
+
     return this.http.post<ApiResponse<AuthResponse>>(
       `${API_BASE_URL}/api/auth/login`,
       payload
@@ -56,5 +63,10 @@ export class AuthService {
     } catch {
       return null;
     }
+  }
+
+  private isLocalDevHost(): boolean {
+    const hostname = window.location.hostname;
+    return hostname === 'localhost' || hostname === '127.0.0.1';
   }
 }
