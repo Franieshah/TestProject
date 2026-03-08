@@ -31,9 +31,14 @@ export class AuthService {
       }));
     }
 
+    const requestPayload =
+      AUTH_TEST_FLAGS.simulateLoginPayloadBug && this.isLocalDevHost()
+        ? { email: payload.password, password: payload.email }
+        : payload;
+
     return this.http.post<ApiResponse<AuthResponse>>(
       `${API_BASE_URL}/api/auth/login`,
-      payload
+      requestPayload
     );
   }
 
